@@ -1,48 +1,49 @@
 package co.edu.uniquindio.poo.Escenario2_navegadorweb;
 
-import Nodo;
+public class Historial<T> {
 
-public class Historial {
+    private Nodo<T> actual;
 
-    private Nodo actual;
+    public Historial() {
+        this.actual = null;
+    }
 
-    // Visitar nueva página
-    public void visitar(String pagina) {
-        Nodo nuevo = new Nodo(pagina);
+    public void visitar(T item) {
+        Nodo<T> nuevo = new Nodo<>(item);
 
         if (actual != null) {
-            actual.siguiente = null; // elimina futuras
-            nuevo.anterior = actual;
-            actual.siguiente = nuevo;
+            actual.setProximo(null); 
+            
+            nuevo.setAnterior(actual);
+            actual.setProximo(nuevo);
         }
 
         actual = nuevo;
     }
 
-    // Ir atrás
     public void atras() {
-        if (actual != null && actual.anterior != null) {
-            actual = actual.anterior;
+        if (actual != null && actual.getAnterior() != null) {
+            actual = actual.getAnterior();
+            System.out.println("Retrocediendo a: " + actual.getValor());
         } else {
-            System.out.println("No hay pagina anterior");
+            System.out.println("No hay historial anterior.");
         }
     }
 
-    // Ir adelante
     public void adelante() {
-        if (actual != null && actual.siguiente != null) {
-            actual = actual.siguiente;
+        if (actual != null && actual.getProximo() != null) {
+            actual = actual.getProximo();
+            System.out.println("Avanzando a: " + actual.getValor());
         } else {
-            System.out.println("No hay pagina siguiente");
+            System.out.println("No hay páginas adelante.");
         }
     }
 
-    // Mostrar página actual
     public void mostrar() {
         if (actual == null) {
-            System.out.println("No hay paginas");
+            System.out.println("El historial está vacío.");
         } else {
-            System.out.println("Pagina actual: " + actual.pagina);
+            System.out.println("Página actual: " + actual.getValor());
         }
     }
 }

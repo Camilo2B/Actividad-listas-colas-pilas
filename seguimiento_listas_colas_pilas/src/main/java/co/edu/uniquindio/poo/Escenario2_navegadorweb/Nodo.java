@@ -3,34 +3,42 @@ package co.edu.uniquindio.poo.Escenario2_navegadorweb;
 public class Nodo<T> {
     private T valor;
     private Nodo<T> proximo;
-    public Object next;
+    private Nodo<T> anterior; 
 
-    public Nodo(T valor){
+    public Nodo(T valor) {
         this.valor = valor;
-        proximo = null;
+        this.proximo = null;
+        this.anterior = null;
     }
 
     public T getValor() {
-        return valor;
-    }
+         return valor; 
+        }
 
     public void setValor(T valor) {
-        this.valor = valor;
-    }
+         this.valor = valor; 
+        }
 
     public Nodo<T> getProximo() {
-        return proximo;
-    }
+         return proximo; 
+        }
 
     public void setProximo(Nodo<T> proximo) {
-        this.proximo = proximo;
+         this.proximo = proximo; 
+        }
+
+    public Nodo<T> getAnterior() {
+         return anterior; 
+        }
+
+    public void setAnterior(Nodo<T> anterior) {
+         this.anterior = anterior; 
     }
 
     @Override
     public String toString() {
-        return "Nodo [valor=" + valor + ", proximo=" + proximo + "]";
+        return "Nodo [valor=" + valor + ", proximo=" + proximo + ", anterior=" + anterior + "]";
     }
 
-    
     
 }

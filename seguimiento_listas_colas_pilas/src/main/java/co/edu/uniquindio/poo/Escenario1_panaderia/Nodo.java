@@ -1,6 +1,5 @@
 package co.edu.uniquindio.poo.Escenario1_panaderia;
 
-
 public class Nodo<T> {
     private T valor;
     private Nodo<T> proximo;

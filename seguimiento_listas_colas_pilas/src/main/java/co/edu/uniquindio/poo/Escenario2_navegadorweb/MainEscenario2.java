@@ -1,30 +1,16 @@
 package co.edu.uniquindio.poo.Escenario2_navegadorweb;
 
-import Historial;
-
 public class MainEscenario2 {
 
     public static void main(String[] args) {
+        Historial<String> navegador = new Historial<>();
 
-        Historial h = new Historial();
+        navegador.visitar("google.com");
 
-        h.visitar("google.com");
-        h.visitar("youtube.com");
-        h.visitar("facebook.com");
+        navegador.visitar("github.com");
 
-        h.mostrar();
+        navegador.atras();      
 
-        h.atras();
-        h.mostrar();
-
-        h.atras();
-        h.mostrar();
-
-        h.adelante();
-        h.mostrar();
-
-        h.visitar("twitter.com"); // elimina futuro
-
-        h.mostrar();
+        navegador.adelante();   
     }
 }
