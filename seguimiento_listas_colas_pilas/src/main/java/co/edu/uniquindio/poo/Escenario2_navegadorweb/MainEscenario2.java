@@ -23,6 +23,7 @@ public class MainEscenario2 {
         h.adelante();
         h.mostrar();
 
+        System.out.println("\n--- Visitamos pagina extra ---");
         h.visitar("twitter.com"); 
 
         h.mostrar();
