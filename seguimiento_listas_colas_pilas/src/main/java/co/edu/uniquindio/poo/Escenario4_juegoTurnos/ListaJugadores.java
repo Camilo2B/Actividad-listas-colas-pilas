@@ -2,11 +2,28 @@ package co.edu.uniquindio.poo.Escenario4_juegoTurnos;
 
 public class ListaJugadores<T> {
     private Nodo<T> inicial;
+    private Nodo<T> turnoActual;
     private int tam;
 
     public ListaJugadores() {
         this.inicial = null;
+        this.turnoActual = null;
         this.tam = 0;
+
+    }
+
+    public void pasarSiguienteTurno() {
+        if (turnoActual != null) {
+            turnoActual = turnoActual.getProximo();
+            System.out.println("Es el turno de: " + turnoActual.getProximo());
+        }
+    }
+
+    public void volverTurnoAnterior() {
+        if (turnoActual != null) {
+            turnoActual = turnoActual.getAnterior();
+            System.out.println("Turno devuelto a: " + turnoActual.getValor());
+        }
     }
 
     public boolean insertar(T valor) {
@@ -122,19 +139,61 @@ public class ListaJugadores<T> {
         return false;
     }
 
-    public void mostrarSimulacion(int vueltas) {
-    if (inicial == null) {
-        System.out.println("La mesa está vacía.");
-        return;
+    public void mostrarJugadores() {
+        if (inicial == null) {
+            System.out.println("No hay jugadores en la partida.");
+            return;
+        }
+
+        System.out.print("Mesa (Circular Doble): [ ");
+        Nodo<T> temp = inicial;
+        do {
+            if (temp == turnoActual) {
+                System.out.print("*" + temp.getValor() + "* "); // Marca el turno actual
+            } else {
+                System.out.print(temp.getValor() + " ");
+            }
+            temp = temp.getProximo();
+        } while (temp != inicial);
+        System.out.println("]");
     }
 
-    Nodo<T> actual = inicial;
-    System.out.println("--- Iniciando secuencia de turnos ---");
-    
-    for (int i = 1; i <= vueltas; i++) {
-        System.out.println("Turno #" + i + ": " + actual.getValor());
-        actual = actual.getProximo(); // Pasa al siguiente (del último vuelve al primero)
+     public void expulsarJugador(String nombre) {
+        if (inicial == null) return;
+
+        Nodo<T> actual = inicial;
+        boolean encontrado = false;
+
+        do {
+            if (((String) actual.getValor()).equalsIgnoreCase(nombre)) {
+                encontrado = true;
+                break;
+            }
+            actual = actual.getProximo();
+        } while (actual != inicial);
+
+        if (encontrado) {
+            if (actual.getProximo() == actual) {
+                inicial = null;
+                turnoActual = null;
+            } else {
+                // Reenlazar a los vecinos
+                Nodo<T> anterior = actual.getAnterior();
+                Nodo<T> siguiente = actual.getProximo();
+
+                anterior.setProximo(siguiente);
+                siguiente.setAnterior(anterior);
+
+                if (actual == inicial) {
+                    inicial = siguiente;
+                }
+                if (actual == turnoActual) {
+                    turnoActual = siguiente;
+                }
+            }
+            System.out.println("Jugador '" + nombre + "' ha sido expulsado.");
+        } else {
+            System.out.println("No se encontró al jugador: " + nombre);
+        }
     }
-    System.out.println("-------------------------------------");
-}
 }

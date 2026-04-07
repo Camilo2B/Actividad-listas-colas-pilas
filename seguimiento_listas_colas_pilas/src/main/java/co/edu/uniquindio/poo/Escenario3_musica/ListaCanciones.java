@@ -2,11 +2,13 @@ package co.edu.uniquindio.poo.Escenario3_musica;
 
 public class ListaCanciones<T> {
     private Nodo<T> inicial;
+    private Nodo<T> cancionActual;
     private int tam;
     private int posicion;
 
     public ListaCanciones() {
         this.inicial = null;
+        this.cancionActual = null;
         tam = 0;
         posicion = 0;
     }
@@ -31,7 +33,16 @@ public class ListaCanciones<T> {
         tam++;
         return true;
     }
+    public String siguienteCancion() {
+        if (inicial == null) return "Lista vacía"; 
 
+        if (cancionActual == null) {
+            cancionActual = inicial;  
+        } else {
+            cancionActual = cancionActual.getProximo();
+        }
+        return "Reproduciendo ahora: " + cancionActual.getValor();
+    }
    public void insertarInicio(T valor) {
         Nodo<T> nuevoNodo = new Nodo<>(valor);
 
@@ -94,6 +105,48 @@ public class ListaCanciones<T> {
         tam--;
     }
 
+    public void eliminarCancion(String nombre) {
+    if (inicial == null) return;  
+
+    Nodo<T> actual = inicial;
+    Nodo<T> anterior = null;
+
+    Nodo<T> prevInicial = inicial;
+    while (prevInicial.getProximo() != inicial) {
+        prevInicial = prevInicial.getProximo();
+    }
+    anterior = prevInicial;
+
+    boolean encontrado = false;
+    do {
+        if (((String) actual.getValor()).equalsIgnoreCase(nombre)) {
+            encontrado = true;
+            break;
+        }
+        anterior = actual;
+        actual = actual.getProximo();
+    } while (actual != inicial);
+
+    if (encontrado) {
+        if (actual.getProximo() == actual) {
+            // Único nodo
+            inicial = null;
+            cancionActual = null;
+        } else {
+            anterior.setProximo(actual.getProximo());
+            if (actual == inicial) {
+                inicial = actual.getProximo();
+            }
+            if (actual == cancionActual) {
+                cancionActual = anterior.getProximo();
+            }
+        }
+        System.out.println("Canción eliminada: " + nombre);
+    } else {
+        System.out.println("No se encontró la canción: " + nombre);
+    }
+    }
+
     public void agregarPosicion(int posicion, T valor) {
         if (posicion < 0)
             throw new IllegalArgumentException("Posición negativa.");
@@ -141,6 +194,7 @@ public class ListaCanciones<T> {
 
         return false;
     }
+
     
     
     public void setInicial(Nodo<T> inicial) {
@@ -163,8 +217,32 @@ public class ListaCanciones<T> {
         this.posicion = posicion;
     }
 
-    
+    public void mostrarLista() {
+    if (inicial == null) {  
+        System.out.println("La lista de reproducción está vacía.");
+        return;
+    }
 
+    System.out.print("Lista de reproducción: [ ");
+    Nodo<T> temporal = inicial;
+    do {
+        if (temporal == cancionActual) {
+            System.out.print(">" + temporal.getValor() + "< ");
+        } else {
+            System.out.print(temporal.getValor() + " ");
+        }
+        temporal = temporal.getProximo();
+    } while (temporal != inicial);
+    System.out.println("] (Circular)");
+    }
+
+    public Nodo<T> getCancionActual() {
+        return cancionActual;
+    }
+
+    public void setCancionActual(Nodo<T> cancionActual) {
+        this.cancionActual = cancionActual;
+    }
 
 
 }

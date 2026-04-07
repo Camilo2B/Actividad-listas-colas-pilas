@@ -1,49 +1,45 @@
 package co.edu.uniquindio.poo.Escenario2_navegadorweb;
+public class Historial {
 
-public class Historial<T> {
+    private Nodo actual;
 
-    private Nodo<T> actual;
-
-    public Historial() {
-        this.actual = null;
-    }
-
-    public void visitar(T item) {
-        Nodo<T> nuevo = new Nodo<>(item);
+    // Visitar nueva página
+    public void visitar(String pagina) {
+        Nodo nuevo = new Nodo(pagina);
 
         if (actual != null) {
-            actual.setProximo(null); 
-            
-            nuevo.setAnterior(actual);
-            actual.setProximo(nuevo);
+            actual.siguiente = null; // elimina futuras
+            nuevo.anterior = actual;
+            actual.siguiente = nuevo;
         }
 
         actual = nuevo;
     }
 
+    // Ir atrás
     public void atras() {
-        if (actual != null && actual.getAnterior() != null) {
-            actual = actual.getAnterior();
-            System.out.println("Retrocediendo a: " + actual.getValor());
+        if (actual != null && actual.anterior != null) {
+            actual = actual.anterior;
         } else {
-            System.out.println("No hay historial anterior.");
+            System.out.println("No hay pagina anterior");
         }
     }
 
+    // Ir adelante
     public void adelante() {
-        if (actual != null && actual.getProximo() != null) {
-            actual = actual.getProximo();
-            System.out.println("Avanzando a: " + actual.getValor());
+        if (actual != null && actual.siguiente != null) {
+            actual = actual.siguiente;
         } else {
-            System.out.println("No hay páginas adelante.");
+            System.out.println("No hay pagina siguiente");
         }
     }
 
+    // Mostrar página actual
     public void mostrar() {
         if (actual == null) {
-            System.out.println("El historial está vacío.");
+            System.out.println("No hay paginas");
         } else {
-            System.out.println("Página actual: " + actual.getValor());
+            System.out.println("Pagina actual: " + actual.pagina);
         }
     }
 }

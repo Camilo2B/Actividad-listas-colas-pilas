@@ -1,15 +1,14 @@
 package co.edu.uniquindio.poo.Escenario1_panaderia;
 public class ColaTurnos<T> {
 
-    private Nodo<T> frente;
-    private Nodo<T> fin;
+    public Nodo<T> frente;
+    public Nodo<T> fin;
 
     public ColaTurnos() {
         this.frente = null;
         this.fin = null;
     }
 
-    // Agregar elemento (enqueue)
     public void agregar(T valor) {
         Nodo<T> nuevo = new Nodo<>(valor);
 
@@ -17,23 +16,19 @@ public class ColaTurnos<T> {
             frente = nuevo;
             fin = nuevo;
         } else {
-            // Usamos el setter para conectar el último con el nuevo
             fin.setProximo(nuevo);
             fin = nuevo;
         }
     }
 
-    // Atender elemento (dequeue)
     public void eliminar() {
         if (frente == null) {
             System.out.println("No hay elementos en la cola.");
             return;
         }
 
-        // Usamos getValor() para obtener el dato antes de mover el puntero
         System.out.println("Atendiendo a: " + frente.getValor());
         
-        // Usamos getProximo() para avanzar en la cola
         frente = frente.getProximo();
 
         if (frente == null) {
@@ -41,7 +36,6 @@ public class ColaTurnos<T> {
         }
     }
 
-    // Ver el siguiente elemento (peek)
     public void buscar() {
         if (frente == null) {
             System.out.println("La cola está vacía.");
@@ -50,7 +44,6 @@ public class ColaTurnos<T> {
         }
     }
 
-    // Mostrar lista completa
     public void mostrar() {
         if (frente == null) {
             System.out.println("Lista vacía");

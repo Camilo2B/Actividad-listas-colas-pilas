@@ -1,43 +1,38 @@
 package co.edu.uniquindio.poo.Escenario2_navegadorweb;
+    
+public class Nodo {
+    String pagina;
+    Nodo siguiente;
+    Nodo anterior;
 
-public class Nodo<T> {
-    private T valor;
-    private Nodo<T> proximo;
-    private Nodo<T> anterior; 
-
-    public Nodo(T valor) {
-        this.valor = valor;
-        this.proximo = null;
+    public Nodo(String pagina) {
+        this.pagina = pagina;
+        this.siguiente = null;
         this.anterior = null;
     }
 
-    public T getValor() {
-         return valor; 
-        }
-
-    public void setValor(T valor) {
-         this.valor = valor; 
-        }
-
-    public Nodo<T> getProximo() {
-         return proximo; 
-        }
-
-    public void setProximo(Nodo<T> proximo) {
-         this.proximo = proximo; 
-        }
-
-    public Nodo<T> getAnterior() {
-         return anterior; 
-        }
-
-    public void setAnterior(Nodo<T> anterior) {
-         this.anterior = anterior; 
+    public String getPagina() {
+        return pagina;
     }
 
-    @Override
-    public String toString() {
-        return "Nodo [valor=" + valor + ", proximo=" + proximo + ", anterior=" + anterior + "]";
+    public void setPagina(String pagina) {
+        this.pagina = pagina;
+    }
+
+    public Nodo getSiguiente() {
+        return siguiente;
+    }
+
+    public void setSiguiente(Nodo siguiente) {
+        this.siguiente = siguiente;
+    }
+
+    public Nodo getAnterior() {
+        return anterior;
+    }
+
+    public void setAnterior(Nodo anterior) {
+        this.anterior = anterior;
     }
 
     
